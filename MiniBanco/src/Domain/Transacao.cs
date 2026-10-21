@@ -4,10 +4,10 @@ public class Transacao
     public TipoTransacao Tipo { get; }
     public decimal Valor { get; }
 
-    public Transacao(string descricao, TipoTransacao tipo, decimal valor)
+    public Transacao(TipoTransacao tipo, decimal valor, string descricao)
     {
-        this.Descricao = descricao;
         this.Tipo = tipo;
+        this.Descricao = descricao;
         this.Valor = valor;
     }
 }
