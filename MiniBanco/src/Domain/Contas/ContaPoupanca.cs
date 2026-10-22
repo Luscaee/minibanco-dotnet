@@ -9,5 +9,12 @@ class ContaPoupanca : Conta
         this.DiaAniversario = diaAniversario;
     }
 
-    // TODO override FecharMes()
+    public override void FecharMes()
+    {
+        decimal rendimento = Math.Round(Saldo * (decimal)TaxaRendimentoMensal / 100, 2);
+        if (rendimento > 0)
+        {
+            Depositar(rendimento, "Rendimento mensal");
+        }
+    }
 }

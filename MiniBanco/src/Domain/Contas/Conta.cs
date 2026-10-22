@@ -55,4 +55,5 @@ abstract class Conta
         _extrato.Add(transacao);
     }
 
+    public abstract void FecharMes();
 }

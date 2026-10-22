@@ -11,7 +11,6 @@ class ContaSalario : Conta
         this.LimiteSaquesMensais = limiteSaquesMensais;
     }
 
-    // TODO override fecharMes
     protected override void ValidarSaque(decimal valor)
     {
         base.ValidarSaque(valor);
@@ -19,5 +18,10 @@ class ContaSalario : Conta
         {
             RegistrarTransacao(TipoTransacao.Tarifa, 5, "Limite de saque atingido");
         }
+    }
+
+    public override void FecharMes()
+    {
+        _saquesRealizadosNoMes = 0;
     }
 }
