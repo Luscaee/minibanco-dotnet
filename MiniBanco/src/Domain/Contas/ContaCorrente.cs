@@ -7,5 +7,12 @@ class ContaCorrente : Conta
         this.LimiteChequeEspecial = limiteChequeEspecial;
     }
 
-    // TODO override Sacar() e FecharMes()
+    // TODO override FecharMes()
+    protected override void ValidarSaque(decimal valor)
+    {
+        if (Saldo + LimiteChequeEspecial < valor)
+        {
+            throw new SaldoInsuficienteException("Saldo insuficiente.");
+        }
+    }
 }
