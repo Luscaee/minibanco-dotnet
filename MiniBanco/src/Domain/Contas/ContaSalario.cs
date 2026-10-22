@@ -14,7 +14,7 @@ class ContaSalario : Conta
     protected override void ValidarSaque(decimal valor)
     {
         base.ValidarSaque(valor);
-        if (_saquesRealizadosNoMes > LimiteSaquesMensais)
+        if (_saquesRealizadosNoMes >= LimiteSaquesMensais)
         {
             RegistrarTransacao(TipoTransacao.Tarifa, 5, "Limite de saque atingido");
         }

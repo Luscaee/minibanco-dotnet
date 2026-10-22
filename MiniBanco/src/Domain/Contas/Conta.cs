@@ -15,9 +15,6 @@ abstract class Conta
         this.Titular = titular;
     }
 
-    // TODO
-    // FecharMes
-
     public void Depositar(decimal valor, string descricao = "Depósito")
     {
         if (valor <= 0)
