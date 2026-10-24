@@ -1,5 +1,6 @@
 class ContaSalario : Conta
 {
+    public override string TipoConta => "Conta Salário";
     public string Empregador { get; private set; }
     public int LimiteSaquesMensais { get; private set; }
     private int _saquesRealizadosNoMes = 0;

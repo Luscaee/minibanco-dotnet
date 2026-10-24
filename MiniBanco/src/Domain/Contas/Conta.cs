@@ -1,6 +1,7 @@
 abstract class Conta
 {
     public long Id { get; }
+    public abstract string TipoConta { get; }
     public string Titular { get; }
     public decimal Saldo { get; protected set; }
     private List<Transacao> _extrato = new List<Transacao>();

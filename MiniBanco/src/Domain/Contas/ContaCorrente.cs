@@ -1,5 +1,6 @@
 class ContaCorrente : Conta
 {
+    public override string TipoConta => "Conta Corrente";
     public decimal LimiteChequeEspecial { get; private set;}
     private const decimal TarifaManutencao = 10m;
 

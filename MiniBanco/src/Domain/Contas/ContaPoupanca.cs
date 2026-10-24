@@ -1,5 +1,6 @@
 class ContaPoupanca : Conta
 {
+    public override string TipoConta => "Conta Poupança";
     public double TaxaRendimentoMensal { get; private set; } // em %
     public int DiaAniversario { get; }
 
