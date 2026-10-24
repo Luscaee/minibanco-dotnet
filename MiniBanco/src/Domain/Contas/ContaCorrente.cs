@@ -2,6 +2,7 @@ class ContaCorrente : Conta
 {
     public override string TipoConta => "Conta Corrente";
     public decimal LimiteChequeEspecial { get; private set;}
+    public override string AtributoEspecifico => $"Limite Cheque Especial: {LimiteChequeEspecial:C}";
     private const decimal TarifaManutencao = 10m;
 
     public ContaCorrente(string titular, decimal limiteChequeEspecial) : base(titular)

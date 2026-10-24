@@ -3,6 +3,8 @@ class ContaPoupanca : Conta
     public override string TipoConta => "Conta Poupança";
     public double TaxaRendimentoMensal { get; private set; } // em %
     public int DiaAniversario { get; }
+    public override string AtributoEspecifico =>
+    $"Rendimento: {TaxaRendimentoMensal}% ao mês | Aniversário: dia {DiaAniversario}";
 
     public ContaPoupanca(string titular, int diaAniversario, double taxaRendimentoMensal) : base(titular)
     {

@@ -5,6 +5,8 @@ class ContaSalario : Conta
     public int LimiteSaquesMensais { get; private set; }
     private int _saquesRealizadosNoMes = 0;
     public int SaquesRestantes => Math.Max(0, LimiteSaquesMensais - _saquesRealizadosNoMes);
+    public override string AtributoEspecifico => 
+    $"Empregador: {Empregador} \n Limite de saques: {LimiteSaquesMensais} | Saques restantes {SaquesRestantes}";
 
     public ContaSalario(string titular, string empregador, int limiteSaquesMensais) : base(titular)
     {
