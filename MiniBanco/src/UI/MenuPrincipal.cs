@@ -26,11 +26,10 @@ class MenuPrincipal
                 case "4":
                     Console.Clear();
                     Console.WriteLine(RelatorioService.GerarRelatorio(_banco.Contas));
-                    Console.WriteLine();
-                    Console.WriteLine("Pressione qualquer tecla para continuar.");
-                    Console.ReadKey();
+                    Telas.PressioneContinuar();
                     break;
-                case "5": executando = false; break;
+                case "5": Telas.CarregarDemonstracao(_banco); break;
+                case "6": executando = false; break;
                 default:
                     Console.WriteLine("Opção inválida.");
                     Telas.PressioneContinuar();
