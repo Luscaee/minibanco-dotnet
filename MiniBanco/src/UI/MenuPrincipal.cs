@@ -31,7 +31,10 @@ class MenuPrincipal
                     Console.ReadKey();
                     break;
                 case "5": executando = false; break;
-                default: Console.WriteLine("Opção inválida."); break;
+                default:
+                    Console.WriteLine("Opção inválida.");
+                    Telas.PressioneContinuar();
+                    break;
             }
         }
     }

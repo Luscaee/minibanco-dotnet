@@ -39,7 +39,10 @@ static class Telas
             case "2": CriarContaPoupanca(banco); break;
             case "3": CriarContaSalario(banco); break;
             case "4": return;
-            default: Console.WriteLine("Opção inválida."); break;
+            default:
+                Console.WriteLine("Opção inválida.");
+                PressioneContinuar();
+                break;
         }
     }
 
@@ -54,9 +57,7 @@ static class Telas
 
         long id = banco.CriarContaCorrente(titular, limite);
         Console.WriteLine($"Conta Criada! Número da conta: {id}");
-        Console.WriteLine();
-        Console.WriteLine("Pressione qualquer tecla para continuar.");
-        Console.ReadKey();
+        PressioneContinuar();
     }
 
     private static void CriarContaPoupanca(BancoService banco)
@@ -71,9 +72,7 @@ static class Telas
 
         long id = banco.CriarContaPoupanca(titular, diaAniversario, taxa);
         Console.WriteLine($"Conta Criada! Número da conta: {id}");
-        Console.WriteLine();
-        Console.WriteLine("Pressione qualquer tecla para continuar.");
-        Console.ReadKey();
+        PressioneContinuar();
     }
 
     private static void CriarContaSalario(BancoService banco)
@@ -88,9 +87,7 @@ static class Telas
 
         long id = banco.CriarContaSalario(titular, empregador, limiteSaque);
         Console.WriteLine($"Conta Criada! Número da conta: {id}");
-        Console.WriteLine();
-        Console.WriteLine("Pressione qualquer tecla para continuar.");
-        Console.ReadKey();
+        PressioneContinuar();
     }
 
     public static void AcessarConta(BancoService banco)
@@ -204,6 +201,13 @@ static class Telas
         Console.WriteLine();
 
         int idDestino = ConsoleHelper.LerInt("Id da conta do destinatário: ");
+        if (idDestino == conta.Id)
+        {
+            Console.WriteLine("Id de destino deve ser diferente da conta atual.");
+            PressioneContinuar();
+            return;
+        }
+
         decimal valorTransferencia = ConsoleHelper.LerDecimal("Valor(use virgula): ");
         try
         {
