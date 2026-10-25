@@ -14,9 +14,9 @@ static class Telas
         Console.WriteLine("2. Acessar conta");
         Console.WriteLine("3. Aplicar fim de mês (todas as contas)");
         Console.WriteLine("4. Exibir relatório de contas");
-        Console.ForegroundColor = ConsoleColor.Green;
+        if (!DadosDemonstracao.JaCarregado) Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("5. Carregar contas de demonstração");
-        Console.ResetColor();
+        if (!DadosDemonstracao.JaCarregado) Console.ResetColor();
         Console.WriteLine("6. Sair");
         Console.WriteLine();
         Console.Write("Digite:");
