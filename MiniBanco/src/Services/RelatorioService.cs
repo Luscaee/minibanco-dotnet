@@ -146,9 +146,10 @@ static class RelatorioService
 
     private static void AdicionaPendencias(StringBuilder sb, ResultadoAnalise resultado)
     {
-        if (resultado.Classificacao == ClassificacaoConta.Saudavel)
+        if (resultado.ItensCriticos.Count == 0 && resultado.ItensAtencao.Count == 0)
         {
             sb.AppendLine("🟢 Nenhuma pendência identificada. Oferecer produtos de investimento ao cliente.");
+            return;
         }
 
         if (resultado.ItensCriticos.Count > 0)
