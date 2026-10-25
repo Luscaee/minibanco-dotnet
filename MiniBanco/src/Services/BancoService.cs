@@ -3,22 +3,25 @@ class BancoService
     private readonly List<Conta> _contas = new List<Conta>();
     public IReadOnlyList<Conta> Contas => _contas.AsReadOnly();
 
-    public void CriarContaCorrente(string titular, decimal limiteChequeEspecial)
+    public long CriarContaCorrente(string titular, decimal limiteChequeEspecial)
     {
         ContaCorrente contaCorrente = new ContaCorrente(titular, limiteChequeEspecial);
         _contas.Add(contaCorrente);
+        return contaCorrente.Id;
     }
 
-    public void CriarContaSalario(string titular, string empregador, int limiteSaquesMensais)
+    public long CriarContaSalario(string titular, string empregador, int limiteSaquesMensais)
     {
         ContaSalario contaSalario = new ContaSalario(titular, empregador, limiteSaquesMensais);
         _contas.Add(contaSalario);
+        return contaSalario.Id;
     }
 
-    public void CriarContaPoupanca(string titular, int diaAniversario, double taxaRendimentoMensal)
+    public long CriarContaPoupanca(string titular, int diaAniversario, double taxaRendimentoMensal)
     {
         ContaPoupanca contaPoupanca = new ContaPoupanca(titular, diaAniversario, taxaRendimentoMensal);
         _contas.Add(contaPoupanca);
+        return contaPoupanca.Id;
     }
 
     public Conta BuscarContaPorId(long id)
@@ -31,18 +34,6 @@ class BancoService
             }
         }
         throw new ContaNaoEncontradaException($"Conta de Id:{id} não encontrada");
-    }
-
-    public Conta BuscarContaPorTitular(string titular)
-    {
-        foreach (Conta conta in _contas)
-        {
-            if (conta.Titular == titular)
-            {
-                return conta;
-            }
-        }
-        throw new ContaNaoEncontradaException($"Conta de {titular} não encontrada");
     }
 
     public void Depositar(long id, decimal valor)

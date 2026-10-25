@@ -50,10 +50,10 @@ static class Telas
         Console.WriteLine();
 
         string titular = ConsoleHelper.LerTexto("Nome do titular: ");
-        decimal limite = ConsoleHelper.LerDecimal("Limite de cheque especial: ");
+        decimal limite = ConsoleHelper.LerDecimal("Limite de cheque especial(use virgula): ");
 
-        banco.CriarContaCorrente(titular, limite);
-        Console.WriteLine("Conta Criada!");
+        long id = banco.CriarContaCorrente(titular, limite);
+        Console.WriteLine($"Conta Criada! Número da conta: {id}");
         Console.WriteLine();
         Console.WriteLine("Pressione qualquer tecla para continuar.");
         Console.ReadKey();
@@ -67,10 +67,10 @@ static class Telas
 
         string titular = ConsoleHelper.LerTexto("Nome do titular: ");
         int diaAniversario = ConsoleHelper.LerInt("Dia do Aniversário: ");
-        double taxa = ConsoleHelper.LerDouble("Taxa de rendimento: ");
+        double taxa = ConsoleHelper.LerDouble("Taxa de rendimento(use virgula): ");
 
-        banco.CriarContaPoupanca(titular, diaAniversario, taxa);
-        Console.WriteLine("Conta Criada!");
+        long id = banco.CriarContaPoupanca(titular, diaAniversario, taxa);
+        Console.WriteLine($"Conta Criada! Número da conta: {id}");
         Console.WriteLine();
         Console.WriteLine("Pressione qualquer tecla para continuar.");
         Console.ReadKey();
@@ -86,8 +86,8 @@ static class Telas
         string empregador = ConsoleHelper.LerTexto("Empregador: ");
         int limiteSaque = ConsoleHelper.LerInt("Limite de saques mensais: ");
 
-        banco.CriarContaSalario(titular, empregador, limiteSaque);
-        Console.WriteLine("Conta Criada!");
+        long id = banco.CriarContaSalario(titular, empregador, limiteSaque);
+        Console.WriteLine($"Conta Criada! Número da conta: {id}");
         Console.WriteLine();
         Console.WriteLine("Pressione qualquer tecla para continuar.");
         Console.ReadKey();
@@ -99,15 +99,16 @@ static class Telas
         Console.WriteLine("> Acessando conta");
         Console.WriteLine();
 
-        string titular = ConsoleHelper.LerTexto("Nome do titular: ");
+        int id = ConsoleHelper.LerInt("Id da conta: ");
 
         try
         {
-            AcoesConta(banco.BuscarContaPorTitular(titular), banco);
+            AcoesConta(banco.BuscarContaPorId(id), banco);
         }
         catch (ContaNaoEncontradaException ex)
         {
             Console.WriteLine(ex.Message);
+            PressioneContinuar();
         }
     }
 
@@ -137,12 +138,13 @@ static class Telas
                 case "3": Transferir(conta, banco); break;
                 case "4":
                     Console.WriteLine(RelatorioService.GerarExtrato(conta));
-                    Console.WriteLine();
-                    Console.WriteLine("Pressione qualquer tecla para continuar.");
-                    Console.ReadKey();
+                    PressioneContinuar();
                     break;
                 case "5": executando = false; break;
-                default: Console.WriteLine("Opção inválida."); break;
+                default:
+                    Console.WriteLine("Opção inválida.");
+                    PressioneContinuar();
+                    break;
             }
 
         }
@@ -154,23 +156,23 @@ static class Telas
         Console.WriteLine($"> Saque");
         Console.WriteLine();
 
-        decimal valorSaque = ConsoleHelper.LerDecimal("Valor: ");
+        decimal valorSaque = ConsoleHelper.LerDecimal("Valor(use virgula): ");
         try
         {
             banco.Sacar(conta.Id, valorSaque);
             Console.WriteLine($"Saque realizado de {valorSaque:C}");
             Console.WriteLine($"Novo saldo: {conta.Saldo:C}");
-            Console.WriteLine();
-            Console.WriteLine("Pressione qualquer tecla para continuar.");
-            Console.ReadKey();
+            PressioneContinuar();
         }
         catch (ValorInvalidoException ex)
         {
             Console.WriteLine(ex.Message);
+            PressioneContinuar();
         }
         catch (SaldoInsuficienteException ex)
         {
             Console.WriteLine(ex.Message);
+            PressioneContinuar();
         }
     }
 
@@ -180,19 +182,18 @@ static class Telas
         Console.WriteLine($"> Depósito");
         Console.WriteLine();
 
-        decimal valorDeposito = ConsoleHelper.LerDecimal("Valor: ");
+        decimal valorDeposito = ConsoleHelper.LerDecimal("Valor(use virgula): ");
         try
         {
             banco.Depositar(conta.Id, valorDeposito);
             Console.WriteLine($"Depósito realizado de {valorDeposito:C}");
             Console.WriteLine($"Novo saldo: {conta.Saldo:C}");
-            Console.WriteLine();
-            Console.WriteLine("Pressione qualquer tecla para continuar.");
-            Console.ReadKey();
+            PressioneContinuar();
         }
         catch (ValorInvalidoException ex)
         {
             Console.WriteLine(ex.Message);
+            PressioneContinuar();
         }
     }
 
@@ -202,31 +203,31 @@ static class Telas
         Console.WriteLine($"> Transferencia");
         Console.WriteLine();
 
-        string nomeDestino = ConsoleHelper.LerTexto("Nome do titular destinatário: ");
-        decimal valorTransferencia = ConsoleHelper.LerDecimal("Valor: ");
+        int idDestino = ConsoleHelper.LerInt("Id da conta do destinatário: ");
+        decimal valorTransferencia = ConsoleHelper.LerDecimal("Valor(use virgula): ");
         try
         {
-            Conta destinatario = banco.BuscarContaPorTitular(nomeDestino);
-            banco.Sacar(conta.Id, valorTransferencia);
-            banco.Depositar(destinatario.Id, valorTransferencia);
+            Conta destinatario = banco.BuscarContaPorId(idDestino);
+            banco.Transferir(conta.Id, idDestino, valorTransferencia);
 
-            Console.WriteLine($"Transferência realizada de {valorTransferencia:C} para {destinatario.Titular}");
+            Console.WriteLine($"Transferência realizada de {valorTransferencia:C} para conta {destinatario.Id}");
             Console.WriteLine($"Novo saldo: {conta.Saldo:C}");
-            Console.WriteLine();
-            Console.WriteLine("Pressione qualquer tecla para continuar.");
-            Console.ReadKey();
+            PressioneContinuar();
         }
         catch (ValorInvalidoException ex)
         {
             Console.WriteLine(ex.Message);
+            PressioneContinuar();
         }
         catch (SaldoInsuficienteException ex)
         {
             Console.WriteLine(ex.Message);
+            PressioneContinuar();
         }
         catch (ContaNaoEncontradaException ex)
         {
             Console.WriteLine(ex.Message);
+            PressioneContinuar();
         }
     }
 
@@ -240,6 +241,11 @@ static class Telas
         
         Console.Write("Fim de mês aplicado");
 
+        PressioneContinuar();
+    }
+
+    public static void PressioneContinuar()
+    {
         Console.WriteLine();
         Console.WriteLine("Pressione qualquer tecla para continuar.");
         Console.ReadKey();

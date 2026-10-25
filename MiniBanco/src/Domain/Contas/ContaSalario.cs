@@ -6,7 +6,7 @@ class ContaSalario : Conta
     private int _saquesRealizadosNoMes = 0;
     public int SaquesRestantes => Math.Max(0, LimiteSaquesMensais - _saquesRealizadosNoMes);
     public override string AtributoEspecifico => 
-    $"Empregador: {Empregador} \n Limite de saques: {LimiteSaquesMensais} | Saques restantes {SaquesRestantes}";
+    $"Empregador: {Empregador} | Limite de saques: {LimiteSaquesMensais} | Saques restantes {SaquesRestantes}";
 
     public ContaSalario(string titular, string empregador, int limiteSaquesMensais) : base(titular)
     {
@@ -20,7 +20,9 @@ class ContaSalario : Conta
         if (_saquesRealizadosNoMes >= LimiteSaquesMensais)
         {
             RegistrarTransacao(TipoTransacao.Tarifa, 5, "Limite de saque atingido");
+            Saldo -= 5;
         }
+        _saquesRealizadosNoMes++;
     }
 
     public override void FecharMes()
