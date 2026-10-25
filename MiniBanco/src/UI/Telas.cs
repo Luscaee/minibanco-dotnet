@@ -14,7 +14,10 @@ static class Telas
         Console.WriteLine("2. Acessar conta");
         Console.WriteLine("3. Aplicar fim de mês (todas as contas)");
         Console.WriteLine("4. Exibir relatório de contas");
-        Console.WriteLine("5. Sair");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("5. Carregar contas de demonstração");
+        Console.ResetColor();
+        Console.WriteLine("6. Sair");
         Console.WriteLine();
         Console.Write("Digite:");
     }
@@ -242,9 +245,30 @@ static class Telas
         Console.WriteLine();
 
         banco.AplicarFimMes();
-        
+
         Console.Write("Fim de mês aplicado");
 
+        PressioneContinuar();
+    }
+
+    public static void CarregarDemonstracao(BancoService banco)
+    {
+        if (DadosDemonstracao.JaCarregado)
+        {
+            Console.WriteLine("As contas de demonstração já foram carregadas.");
+            PressioneContinuar();
+            return;
+        }
+
+        int quantidadeAntes = banco.Contas.Count;
+
+        DadosDemonstracao.Carregar(banco);
+
+        for (int i = quantidadeAntes; i < banco.Contas.Count; i++)
+        {
+            Conta conta = banco.Contas[i];
+            Console.WriteLine($"{conta.Id} - {conta.Titular} ({conta.TipoConta})");
+        }
         PressioneContinuar();
     }
 

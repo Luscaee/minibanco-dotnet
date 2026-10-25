@@ -10,13 +10,9 @@ public static class TelaCarregamento
         Console.Clear();
         Console.ForegroundColor = ConsoleColor.Green;
 
-        Console.WriteLine();
-        Console.WriteLine("  ╔══════════════════════════════════════╗");
-        Console.WriteLine("  ║                                      ║");
-        Console.WriteLine("  ║              MINIBANCO               ║");
-        Console.WriteLine("  ║       Seu dinheiro, sua gestão       ║");
-        Console.WriteLine("  ║                                      ║");
-        Console.WriteLine("  ╚══════════════════════════════════════╝");
+        Console.WriteLine("╔═════════════════════════════════════════════════════╗");
+        Console.WriteLine("║   MINIBANCO - MOTOR DE GESTÃO DE CONTAS BANCÁRIAS   ║");
+        Console.WriteLine("╚═════════════════════════════════════════════════════╝");
 
         Console.ResetColor();
         Console.WriteLine("\n  Inicializando o sistema...\n");
