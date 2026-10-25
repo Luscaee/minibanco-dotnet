@@ -47,7 +47,7 @@ public static class TelaCarregamento
                 Console.Write(new string('-', larguraBarra - progresso));
                 Console.Write($"] {percentual,3}%");
 
-                Thread.Sleep(60);
+                Thread.Sleep(15);
             }
 
             Console.WriteLine("\n");
