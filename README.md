@@ -2,6 +2,10 @@
 
 Motor de gestão de contas bancárias em C#, executado no terminal. O sistema cria contas de três tipos, registra movimentações, aplica o fechamento mensal e gera um relatório de saúde financeira com pendências e recomendações para a gerência.
 
+## Vídeo de apresentação
+
+[Assista no YouTube](https://youtu.be/bOKg0vKTp6w)
+
 ## Sumário
 
 - [Funcionalidades](#funcionalidades)
